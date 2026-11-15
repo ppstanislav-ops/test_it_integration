@@ -4,7 +4,7 @@ UI-автотесты для платформы **dvjob.kz** на стеке `py
 Проект реализует паттерн Page Object, ведёт красивые Allure-отчёты и автоматически
 загружает результаты в систему управления тестами **Test IT**.
 
-## Getting started
+## На старт!
 
 Чтобы быстро развернуть проект локально, выполните шаги ниже.
 
@@ -71,7 +71,7 @@ test_it_integration-main/
     └── testit_project/
 ```
 
-## Usage
+## Использование
 
 ### Запуск всех тестов
 
@@ -122,38 +122,8 @@ uv run allure serve allure-results
   окружения», «Известные проблемы (skipped)»;
 - скриншоты, HTML-страницы и URL при падении теста.
 
-## Integrate with your tools
 
-- [Настроить интеграции проекта в GitLab](https://gitlab.com/ppstanislav/test_it_integration/-/settings/integrations)
-- [Подключить Test IT через `testit-adapter-pytest`](https://docs.testit.software/)
-
-## Collaborate with your team
-
-- [Пригласить участников в проект](https://docs.gitlab.com/user/project/members/)
-- [Создать новый merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-- [Автоматически закрывать issue из merge request](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-- [Включить approval'ы для merge request](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-
-## Test and Deploy
-
-В GitLab доступна встроенная CI/CD:
-
-- [Начало работы с GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-- [Анализ кода через SAST](https://docs.gitlab.com/user/application_security/sast/)
-- [Авто-деплой в Kubernetes / Amazon EC2 / Amazon ECS](https://docs.gitlab.com/topics/autodevops/requirements/)
-- [Protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
-
----
-
-# Editing this README
-
-Структура ниже — отправная точка на основе шаблона с [makeareadme.com](https://www.makeareadme.com/).
-Можно смело править под свои задачи.
-
-## Name
-**Test IT integration** — UI-автотесты платформы dvjob.kz с интеграцией в Test IT.
-
-## Description
+## Описание
 Проект автоматизирует UI-тестирование сайта [dvjob.kz](https://dvjob.kz) и
 выгрузку результатов в систему управления тестами Test IT.
 
@@ -178,49 +148,9 @@ uv run allure serve allure-results
 - `python-dotenv >= 1.2` — переменные окружения из `.env`
 - `testit-adapter-pytest >= 5.2` — выгрузка в Test IT
 
-## Badges
-При желании можно добавить бейджи через [shields.io](https://shields.io/):
-процент успешных тестов, статус CI, версию Python и т. д.
-
-## Visuals
-Запустите `uv run allure serve allure-results` — в отчёт автоматически попадают
-скриншоты при падениях, HTML-снапшоты и URL страницы.
-
-## Installation
-См. раздел [Getting started](#getting-started).
-
-## Usage
-См. раздел [Usage](#usage).
-
-## Support
-Вопросы и баги — в issue трекера GitLab-проекта:
-`https://gitlab.com/ppstanislav/test_it_integration/-/issues`.
-Для оперативного обсуждения — чат команды.
-
-## Roadmap
-- [ ] Параллельный запуск тестов через `pytest-xdist`
-- [ ] Запуск в CI/CD GitLab с генерацией Allure-отчёта как артефакта
-- [ ] Расширение покрытия: личный кабинет соискателя и работодателя
-- [ ] Снятие `@xfail` с теста `test_sign_in_null_byte_vulnerability` после фикса бэкенда
-- [ ] Добавление API-тестов
-
-## Contributing
-Контрибуции приветствуются. Перед мержем:
-
-1. Поднимите отдельную ветку от `main`.
-2. Проверьте, что `uv run pytest` проходит локально.
-3. Добавьте `allure.step` / `testit.step` в новые шаги теста.
-4. Для новых тест-кейсов обязательно указывайте `@pytest.mark.testit(external_id=...)`
-   с уникальным `external_id`.
-5. Не коммитьте `.env` и `connection_config.ini` — они уже в `.gitignore`.
-
-## Authors and acknowledgment
-- **ppstanislav-ops** — автор и мейнтейнер (`ppstanislav@gmail.com`)
-- Спасибо команде DV Jobs за тестовый стенд и аккаунты
-
 ## License
 Проект распространяется под лицензией MIT. См. файл `LICENSE`.
 
-## Project status
+## Статус проекта
 Проект в активной разработке. Автотесты дополняются по мере доработки продукта.
 
