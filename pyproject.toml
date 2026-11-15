@@ -1,0 +1,32 @@
+[project]
+name = "testit-project"
+version = "0.1.0"
+description = "Это мои первые автотесты для Test IT"
+readme = "README.md"
+authors = [
+    { name = "ppstanislav-ops", email = "ppstanislav@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pytest>=9.2.0",
+    "pytest-playwright>=0.10.0",
+    "playwright>=1.65.0",
+    "allure-pytest>=2.16.2",
+    "python-dotenv>=1.2.4",
+    "testit-adapter-pytest>=5.2.3",
+]
+
+[project.scripts]
+testit-project = "testit_project:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+markers = [
+    "testit: маркер для интеграции с Test IT",
+]
+testpaths = ["tests"]
+addopts = "-v --alluredir=allure-results --screenshot=only-on-failure --video=retain-on-failure --output=test-results"
+

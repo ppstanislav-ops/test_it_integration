@@ -1,0 +1,84 @@
+# ========== Python ==========
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+*.egg
+
+# ========== Виртуальные окружения ==========
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ========== Кэши и инструменты ==========
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# ========== Playwright / тестовые артефакты ==========
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+*.trace.zip
+*.webm
+
+# ========== Allure ==========
+allure-results/
+allure-report/
+
+# ========== Состояние локальных запусков ==========
+# Счётчик buildOrder для executor.json в Allure
+.build_order
+
+# ========== Секреты и конфиги ==========
+# Креды для тестов
+.env
+.env.*
+!.env.example
+
+# В connection_config.ini лежит privateToken Test IT — его нельзя коммитить
+connection_config.ini
+connection_config.*.ini
+!connection_config.example.ini
+
+# ========== Логи и временные файлы ==========
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# ========== IDE / редакторы ==========
+.idea/
+.vscode/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# ========== ОС ==========
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========== прочее  ==========
+
+/старые файлы/
+
+
