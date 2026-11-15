@@ -4,6 +4,10 @@ UI-автотесты для платформы **dvjob.kz** на стеке `py
 Проект реализует паттерн Page Object, ведёт красивые Allure-отчёты и автоматически
 загружает результаты в систему управления тестами **Test IT**.
 
+![Python](https://img.shields.io/badge/Python-3.12%2B-blue)
+![pytest](https://img.shields.io/badge/pytest-9.x-green)
+![TestIT](https://img.shields.io/badge/TestIT-purple)
+
 ## На старт!
 
 Чтобы быстро развернуть проект локально, выполните шаги ниже.
