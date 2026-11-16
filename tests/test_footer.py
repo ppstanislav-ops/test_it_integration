@@ -9,6 +9,12 @@ EPIC = "UI тестирование dvjob.kz"
 FEATURE = "Футер"
 
 
+# Вспомогательная функция для скролла вниз, чтобы триггернуть ленивую загрузку футера и картинок
+def scroll_to_footer(footer: FooterPage):
+    footer.page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+    footer.page.wait_for_timeout(1000)  # Небольшая пауза для рендера
+
+
 # ========== Видимость ==========
 @pytest.mark.testit(external_id="footer-visible")
 @allure.epic(EPIC)
@@ -18,7 +24,9 @@ FEATURE = "Футер"
 @allure.severity(allure.severity_level.CRITICAL)
 def test_footer_visible(footer: FooterPage):
     """Проверяет видимость футера на главной странице."""
-    expect(footer.footer).to_be_visible()
+    scroll_to_footer(footer)
+    # Увеличиваем таймаут до 15 секунд из-за долгой загрузки Vue
+    expect(footer.footer).to_be_visible(timeout=15_000)
 
 
 @pytest.mark.testit(external_id="footer-info")
@@ -29,7 +37,8 @@ def test_footer_visible(footer: FooterPage):
 @allure.severity(allure.severity_level.MINOR)
 def test_footer_info(footer: FooterPage):
     """Проверяет наличие текста с адресом компании."""
-    expect(footer.address_text).to_be_visible()
+    scroll_to_footer(footer)
+    expect(footer.address_text).to_be_visible(timeout=15_000)
 
 
 # ========== Навигационные ссылки ==========
@@ -41,6 +50,7 @@ def test_footer_info(footer: FooterPage):
 @allure.severity(allure.severity_level.CRITICAL)
 def test_about(footer: FooterPage):
     """Проверяет переход на страницу «О компании»."""
+    scroll_to_footer(footer)
     with testit.step("Клик по ссылке «О компании»"):
         footer.click_about()
     with testit.step("Проверка: идет переход на страницу «О компании»"):
@@ -55,6 +65,7 @@ def test_about(footer: FooterPage):
 @allure.severity(allure.severity_level.NORMAL)
 def test_terms(footer: FooterPage):
     """Проверяет переход на страницу «Соглашение об оказании услуг»."""
+    scroll_to_footer(footer)
     with testit.step("Клик по ссылке «Соглашение об оказании услуг»"):
         footer.click_terms()
     with testit.step("Проверка: идет переход на страницу «Соглашение об оказании услуг»"):
@@ -69,6 +80,7 @@ def test_terms(footer: FooterPage):
 @allure.severity(allure.severity_level.NORMAL)
 def test_privacy(footer: FooterPage):
     """Проверяет переход на страницу «Политика конфиденциальности»."""
+    scroll_to_footer(footer)
     with testit.step("Клик по ссылке «Политика конфиденциальности»"):
         footer.click_privacy()
     with testit.step("Проверка: идет переход на страницу «Политика конфиденциальности»"):
@@ -83,6 +95,7 @@ def test_privacy(footer: FooterPage):
 @allure.severity(allure.severity_level.NORMAL)
 def test_refund(footer: FooterPage):
     """Проверяет переход на страницу «Условия возврата»."""
+    scroll_to_footer(footer)
     with testit.step("Клик по ссылке «Условия возврата»"):
         footer.click_refund()
     with testit.step("Проверка: идет переход на страницу «Условия возврата»"):
@@ -97,6 +110,7 @@ def test_refund(footer: FooterPage):
 @allure.severity(allure.severity_level.NORMAL)
 def test_contacts(footer: FooterPage):
     """Проверяет переход на страницу «Контакты»."""
+    scroll_to_footer(footer)
     with testit.step("Клик по ссылке «Контакты»"):
         footer.click_contacts()
     with testit.step("Проверка: идет переход на страницу «Контакты»"):
@@ -112,10 +126,12 @@ def test_contacts(footer: FooterPage):
 @allure.severity(allure.severity_level.CRITICAL)
 def test_footer_phone(footer: FooterPage):
     """Проверяет отображение и корректность ссылки на телефон."""
+    scroll_to_footer(footer)
     with testit.step("Телефон отображается"):
-        expect(footer.phone_link).to_be_visible()
+        expect(footer.phone_link).to_be_visible(timeout=15_000)
     with testit.step("Отображаемый номер содержит +7(777) 8155015"):
         expect(footer.phone_link).to_contain_text("+7(777) 8155015")
+
 
 @pytest.mark.testit(external_id="footer-email")
 @allure.epic(EPIC)
@@ -125,8 +141,9 @@ def test_footer_phone(footer: FooterPage):
 @allure.severity(allure.severity_level.NORMAL)
 def test_footer_email(footer: FooterPage):
     """Проверяет корректность e-mail ссылки."""
+    scroll_to_footer(footer)
     with testit.step("E-mail отображается"):
-        expect(footer.email_link).to_be_visible()
+        expect(footer.email_link).to_be_visible(timeout=15_000)
     with testit.step("Текст ссылки — info@dvjob.kz"):
         expect(footer.email_link).to_contain_text("info@dvjob.kz")
     with testit.step("ссылка — mailto:info@dvjob.kz"):
@@ -142,8 +159,9 @@ def test_footer_email(footer: FooterPage):
 @allure.severity(allure.severity_level.MINOR)
 def test_footer_address_full(footer: FooterPage):
     """Проверяет наличие полного адреса в футере."""
+    scroll_to_footer(footer)
     with testit.step("Проверка текста адреса"):
-        expect(footer.footer).to_contain_text("г.Алматы, пр. Достык 202, оф. 202")
+        expect(footer.footer).to_contain_text("г.Алматы, пр. Достык 202, оф. 202", timeout=15_000)
 
 
 @pytest.mark.testit(external_id="footer-copyright")
@@ -154,8 +172,9 @@ def test_footer_address_full(footer: FooterPage):
 @allure.severity(allure.severity_level.TRIVIAL)
 def test_footer_copyright(footer: FooterPage):
     """Проверяет видимость блока копирайта."""
+    scroll_to_footer(footer)
     with testit.step("Проверка видимости копирайта"):
-        expect(footer.copyright_text).to_be_visible()
+        expect(footer.copyright_text).to_be_visible(timeout=15_000)
 
 
 @pytest.mark.testit(external_id="footer-legal-notice")
@@ -166,8 +185,9 @@ def test_footer_copyright(footer: FooterPage):
 @allure.severity(allure.severity_level.TRIVIAL)
 def test_footer_legal_notice(footer: FooterPage):
     """Проверяет видимость юридического уведомления."""
+    scroll_to_footer(footer)
     with testit.step("Проверка видимости уведомления"):
-        expect(footer.legal_notice_text).to_be_visible()
+        expect(footer.legal_notice_text).to_be_visible(timeout=15_000)
 
 
 # ========== Соцсети ==========
@@ -184,8 +204,22 @@ def test_footer_legal_notice(footer: FooterPage):
 ])
 def test_footer_social_links(footer: FooterPage, href: str):
     """Проверяет видимость иконок социальных сетей."""
-    with testit.step(f"Проверка видимости иконки {href}"):
-        expect(footer.get_social_link(href)).to_be_visible()
+    scroll_to_footer(footer)
+
+    with testit.step(f"Проверка наличия ссылки на иконку {href}"):
+        link = footer.get_social_link(href)
+
+        # 1. Проверяем, что ссылка прикреплена к DOM (есть в коде страницы)
+        expect(link).to_be_attached(timeout=15_000)
+
+        # 2. Проверяем, что у ссылки правильный href
+        expect(link).to_have_attribute("href", href)
+
+        # 3. Проверяем видимость самой иконки (img) внутри ссылки.
+        # Внимание: если на сайте битые картинки (как на вашем скриншоте), этот шаг может упасть,
+        # так как тестировщик должен фиксировать такие баги.
+        # Если нужно обойти баг с картинками и проверять только ссылку — закомментируйте строку ниже.
+        expect(link.locator("img")).to_be_visible(timeout=15_000)
 
 
 # ========== Юридические ссылки (href) ==========
@@ -204,9 +238,10 @@ def test_footer_social_links(footer: FooterPage, href: str):
 ])
 def test_footer_legal_links_href(footer: FooterPage, name: str, href_re: str):
     """Проверяет корректность href у юридических ссылок."""
+    scroll_to_footer(footer)
     with testit.step(f"Найти и проверить видимость ссылки «{name}»"):
         link = footer.get_legal_link_by_name(name)
-        expect(link).to_be_visible()
+        expect(link).to_be_visible(timeout=15_000)
     with testit.step("Ссылка соответствует ожидаемому шаблону"):
         expect(link).to_have_attribute("href", re.compile(href_re))
 
@@ -220,5 +255,6 @@ def test_footer_legal_links_href(footer: FooterPage, name: str, href_re: str):
 @allure.severity(allure.severity_level.MINOR)
 def test_footer_has_no_empty_links(footer: FooterPage):
     """Проверяет отсутствие пустых ссылок в футере."""
+    scroll_to_footer(footer)
     with testit.step("Проверка количества пустых ссылок (должно быть 0)"):
-        expect(footer.empty_links).to_have_count(0)
+        expect(footer.empty_links).to_have_count(0, timeout=15_000)
